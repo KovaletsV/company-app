@@ -1,13 +1,10 @@
 import React from "react";
-import { iconChosenTrue, iconChosenFalse } from "../utils/icons";
 
-const BookMark = ({ status, onToggleMark, id }) => {
-  console.log(onToggleMark);
-  const getChosen = () => (status ? iconChosenTrue : iconChosenFalse);
+const BookMark = ({ status, ...rest }) => {
   return (
-    <span role="button" onClick={() => onToggleMark(id)}>
-      {getChosen()}
-    </span>
+    <button {...rest}>
+      <i className={"bi bi-bookmark" + (status ? "-heart-fill" : "")}></i>
+    </button>
   );
 };
 

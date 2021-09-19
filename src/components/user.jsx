@@ -9,31 +9,27 @@ const User = ({
   profession,
   completedMeetings,
   rate,
-  status,
   onDelete,
-  onToggleMark,
+  status,
+  onToggleBookMark,
 }) => {
   return (
-    <tr>
+    <tr key={_id}>
       <td>{name}</td>
       <td>
-        {qualities.map((badge) => (
-          <Quality key={badge._id} {...badge} />
+        {qualities.map((qual) => (
+          <Quality {...qual} />
         ))}
       </td>
       <td>{profession.name}</td>
       <td>{completedMeetings}</td>
-      <td>{rate}</td>
+      <td>{rate} /5</td>
       <td>
-        <BookMark status={status} onToggleMark={onToggleMark} id={_id} />
+        <BookMark status={status} onClick={() => onToggleBookMark(_id)} />
       </td>
       <td>
-        <button
-          onClick={() => onDelete(_id)}
-          type="button"
-          className="btn btn-danger"
-        >
-          Удалить
+        <button onClick={() => onDelete(_id)} className="btn btn-danger">
+          delete
         </button>
       </td>
     </tr>
