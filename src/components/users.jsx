@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { paginate } from "../utils/paginate";
-
+import PropTypes from "prop-types";
 import User from "./user";
 import Pagination from "./pagination";
 
@@ -49,5 +49,9 @@ const Users = ({ users, onDelete, onToggleMark }) => {
     </>
   );
 };
-
+Users.propTypes = {
+  users: PropTypes.array.isRequired,
+  onDelete: PropTypes.array.isRequired,
+  onToggleMark: PropTypes.array.isRequired,
+};
 export default Users;
