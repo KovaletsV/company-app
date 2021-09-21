@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Users from "./components/users";
-import SearchStatus from "./components/searchStatus";
 import Api from "./API";
 
 function App() {
   const [users, setUsers] = useState(Api.users.fetchAll());
+  //Удаление ползователя из списка
   const handleDelete = (userId) => {
     setUsers(users.filter((user) => userId !== user._id));
   };
+  //Выбор флага избранное
   const handleToggleBookMark = (id) =>
     setUsers(
       users.map((item) =>
@@ -17,7 +18,6 @@ function App() {
 
   return (
     <div>
-      <SearchStatus length={users.length} />
       <Users
         onDelete={handleDelete}
         onToggleMark={handleToggleBookMark}

@@ -3,7 +3,9 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 
 const Pagination = ({ itemsCount, pageSize, onPageChange, currentPage }) => {
+  //Определяем количество страниц
   const pagesCount = Math.ceil(itemsCount / pageSize);
+  //Создаём массив с количеством страниц
   const pages = _.range(1, pagesCount + 1);
 
   if (pagesCount === 1) return null;

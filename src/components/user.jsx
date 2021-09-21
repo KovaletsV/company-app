@@ -19,7 +19,7 @@ const User = ({
       <td>{name}</td>
       <td>
         {qualities.map((qual) => (
-          <Quality key={_id} {...qual} />
+          <Quality key={qual._id} {...qual} />
         ))}
       </td>
       <td>{profession.name}</td>
@@ -37,14 +37,14 @@ const User = ({
   );
 };
 User.propTypes = {
-  _id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  qualities: PropTypes.array.isRequired,
-  profession: PropTypes.string.isRequired,
+  qualities: PropTypes.array,
+  profession: PropTypes.object.isRequired,
   completedMeetings: PropTypes.number.isRequired,
   rate: PropTypes.number.isRequired,
   onDelete: PropTypes.func.isRequired,
-  onToggleBookMark: PropTypes.func.isRequired,
-  status: PropTypes.bool.isRequired,
+  onToggleBookMark: PropTypes.func,
+  status: PropTypes.bool,
 };
 export default User;

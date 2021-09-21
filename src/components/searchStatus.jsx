@@ -17,7 +17,6 @@ const SearchStatus = ({ length }) => {
   );
 };
 SearchStatus.propTypes = {
-  number: PropTypes.number.isRequired,
   length: PropTypes.number,
 };
 export default SearchStatus;
