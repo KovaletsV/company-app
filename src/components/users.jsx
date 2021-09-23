@@ -7,7 +7,7 @@ import GroupList from "./groupList";
 import Api from "../API";
 import SearchStatus from "./searchStatus";
 
-const Users = ({ users, onDelete, onToggleMark }) => {
+const Users = ({ users, onDelete, onToggleBookMark }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
@@ -30,7 +30,10 @@ const Users = ({ users, onDelete, onToggleMark }) => {
   };
   //Фильтр пользователей по профессии
   const filteredUsers = selectedProf
-    ? users.filter((user) => user.profession === selectedProf)
+    ? users.filter(
+        (user) =>
+          JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+      )
     : users;
   const count = filteredUsers.length;
   const usersCrop = paginate(filteredUsers, currentPage, pageSize);
@@ -72,7 +75,7 @@ const Users = ({ users, onDelete, onToggleMark }) => {
                 <User
                   key={user._id}
                   onDelete={onDelete}
-                  onToggleMark={onToggleMark}
+                  onToggleBookMark={onToggleBookMark}
                   {...user}
                 />
               ))}
@@ -94,6 +97,6 @@ const Users = ({ users, onDelete, onToggleMark }) => {
 Users.propTypes = {
   users: PropTypes.array,
   onDelete: PropTypes.func,
-  onToggleMark: PropTypes.func,
+  onToggleBookMark: PropTypes.func,
 };
 export default Users;
