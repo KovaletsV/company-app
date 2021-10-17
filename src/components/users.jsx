@@ -13,6 +13,7 @@ const Users = () => {
   const [professions, setProfessions] = useState();
   const [selectedProf, setSelectedProf] = useState();
   const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
+
   //Принятие данных (server)
   useEffect(() => {
     Api.professions.fetchAll().then((data) => setProfessions(data));
@@ -21,7 +22,7 @@ const Users = () => {
     setCurrentPage(1);
   }, [selectedProf]);
   //Установка количество отображаемых пользователей на странице
-  const pageSize = 8;
+  const pageSize = 4;
   const [users, setUsers] = useState();
 
   useEffect(() => {
@@ -42,7 +43,6 @@ const Users = () => {
         return user;
       })
     );
-    console.log(id);
   };
   //Выбор профессии
   const handleProfessionSelect = (item) => {
@@ -110,5 +110,6 @@ const Users = () => {
 };
 Users.propTypes = {
   users: PropTypes.array,
+  match: PropTypes.object,
 };
 export default Users;

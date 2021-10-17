@@ -11,9 +11,11 @@ const SearchStatus = ({ length }) => {
   const getBadgeClasses = (number) =>
     number === 0 ? "badge bg-danger" : "badge bg-primary";
   return (
-    <h2>
-      <span className={getBadgeClasses(length)}>{renderPhrase(length)}</span>
-    </h2>
+    <>
+      <h2>
+        <span className={getBadgeClasses(length)}>{renderPhrase(length)}</span>
+      </h2>
+    </>
   );
 };
 SearchStatus.propTypes = {
