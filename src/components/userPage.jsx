@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Quality from "./quality";
+import QualitiesList from "./qualitiesList";
 import API from "../API";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const UserPage = () => {
+const UserPage = ({ userId }) => {
   const history = useHistory();
   const [user, setUser] = useState();
-  const params = useParams();
-  const { userId } = params;
   useEffect(() => {
     API.users.getById(userId).then((data) => setUser(data));
   }, []);
   const handleAllUsers = () => {
-    history.replace("/users");
+    history.push("/users");
   };
   if (user) {
     return (
       <>
-        <h3>{user._id}</h3>
         <h3>{user.name}</h3>
-        <h3>{user.profession.name}</h3>
-        {user.qualities.map((qual) => (
-          <Quality key={qual._id} {...qual} />
-        ))}
-        <h3>{user.completedMeetings}</h3>
-        <h3>{user.rate}</h3>
+        <h3>Profession: {user.profession.name}</h3>
+        <QualitiesList qualities={user.qualities} />
+        <p>Completed meetings: {user.completedMeetings}</p>
+        <h3>Rate: {user.rate}</h3>
 
         <button
           onClick={() => {
@@ -37,7 +32,7 @@ const UserPage = () => {
       </>
     );
   }
-  return "Loading";
+  return "Loading...";
 };
 
 UserPage.propTypes = {
