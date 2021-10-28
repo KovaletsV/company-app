@@ -21,7 +21,6 @@ const TextField = ({ label, type, value, name, onChange, error }) => {
           name={name}
           value={value}
           onChange={onChange}
-          parima
           className={getInputClasses()}
         />
         {type === "password" && (
