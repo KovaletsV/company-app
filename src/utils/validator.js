@@ -16,7 +16,7 @@ export function validator(data, config) {
         statusValidate = !capitalRegExp.test(data);
         break;
       }
-      case "isContainDigit": {
+      case "isConfigDigit": {
         const digitRegExp = /\d+/g;
         statusValidate = !digitRegExp.test(data);
         break;

@@ -14,7 +14,7 @@ module.exports = {
   plugins: ["react"],
   rules: {
     indent: "off",
-    semi: [2, "always"],
+    "semi": [2, "always"],
     "space-before-function-paren": [
       "error",
       {
@@ -34,7 +34,9 @@ module.exports = {
       },
     ],
     "spaced-comment": [1, "never", { markers: ["/"] }],
-    "multiline-ternary": ["error", "always-multiline"],
+    "multiline-ternary": ["off"],
     "comma-dangle": ["error", "only-multiline"],
+    "eol-last": 0,
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
   },
 };
