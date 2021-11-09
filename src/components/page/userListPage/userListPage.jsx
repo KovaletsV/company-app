@@ -46,14 +46,7 @@ const UserListPage = () => {
             }),
         );
     };
-    //Метод поиска людей
-    const handleUserSearch = (e) => {
-        clearFilter();
-        setSearchUser(e.target.value);
-    };
-    const clearFilter = () => {
-        setSelectedProf();
-    };
+
     //Выбор профессии
     const handleProfessionSelect = (item) => {
         setSearchUser("");
@@ -66,6 +59,14 @@ const UserListPage = () => {
     //Создаем функцию для сортировки
     const handleSort = (item) => {
         setSortBy(item);
+    };
+    const clearFilter = () => {
+        setSelectedProf();
+    };
+    //Метод поиска людей
+    const handleUserSearch = ({ target }) => {
+        clearFilter();
+        setSearchUser(target.value);
     };
     if (users) {
         const searchedUsers = searchUser

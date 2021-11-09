@@ -19,6 +19,9 @@ const SelectField = ({
                   value: options[optionName]._id,
               }))
             : options;
+    const handleChange = ({ target }) => {
+        onChange({ name: target.name, value: target.value });
+    };
 
     return (
         <div className="mb-4">
@@ -30,14 +33,14 @@ const SelectField = ({
                 id="validationCustom04"
                 name="profession"
                 value={value}
-                onChange={onChange}
+                onChange={handleChange}
             >
                 <option disabled value="">
                     {defaultOption}
                 </option>
                 {optionsArray &&
                     optionsArray.map((option) => (
-                        <option value={option.value} key={option._id}>
+                        <option value={option.value} key={option.value}>
                             {option.name}
                         </option>
                     ))}
