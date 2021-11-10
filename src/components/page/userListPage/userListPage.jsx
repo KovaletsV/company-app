@@ -46,7 +46,14 @@ const UserListPage = () => {
             }),
         );
     };
-
+    //Метод поиска людей
+    const clearFilter = () => {
+        setSelectedProf();
+    };
+    const handleUserSearch = ({ target }) => {
+        clearFilter();
+        setSearchUser(target.value);
+    };
     //Выбор профессии
     const handleProfessionSelect = (item) => {
         setSearchUser("");
@@ -60,14 +67,7 @@ const UserListPage = () => {
     const handleSort = (item) => {
         setSortBy(item);
     };
-    const clearFilter = () => {
-        setSelectedProf();
-    };
-    //Метод поиска людей
-    const handleUserSearch = ({ target }) => {
-        clearFilter();
-        setSearchUser(target.value);
-    };
+
     if (users) {
         const searchedUsers = searchUser
             ? users.filter((user) => user.name.toLowerCase().match(searchUser))
