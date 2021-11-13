@@ -50,7 +50,7 @@ const UserListPage = () => {
     const clearFilter = () => {
         setSelectedProf();
     };
-    const handleUserSearch = ({ target }) => {
+    const handleUserSearch = (target) => {
         clearFilter();
         setSearchUser(target.value);
     };
