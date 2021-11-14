@@ -4,14 +4,14 @@ import Navbar from "./components/ui/navBar";
 import { Route, Switch, Redirect } from "react-router";
 import Main from "./layouts/main";
 import Login from "./layouts/login";
-import EditPage from "./components/ui/editPage";
+import EditUserPage from "./components/ui/editPage";
 
 const App = () => {
   return (
     <>
       <Navbar />
       <Switch>
-        <Route path="/users/:userId/edit" component={EditPage} />
+        <Route path="/users/:userId/edit" component={EditUserPage} />
         <Route path="/users/:userId?" component={Users} />
         <Route path="/login:type?" component={Login} />
         <Route exact path="/" component={Main} />

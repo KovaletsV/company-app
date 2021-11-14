@@ -10,12 +10,9 @@ const EditUserPage = () => {
 
     useEffect(() => {
         API.users.getById(userId).then(data => setUser(data));
+        console.log(user);
     }, []);
-    return (
-        <div className="container mt-5">
-            {user ? <EditPage user={user} /> : "loading..."}
-        </div>
-    );
+    return <div className="container mt-5"></div>;
 };
 
 export default EditUserPage;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
 import API from "../../API";
@@ -7,7 +7,8 @@ import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 
-const EditPage = ({ user }) => {
+const EditPage = () => {
+    const { userId } = useParams();
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -21,6 +22,12 @@ const EditPage = ({ user }) => {
     const [qualities, setQualities] = useState({});
     const [errors, setErrors] = useState({});
     useEffect(() => {
+        API.users.getById(userId).then(user =>
+            setData({
+                ...user,
+                email: user.email ? user.email : "",
+            }),
+        );
         API.professions.fetchAll().then(data => setProfessions(data));
         API.qualities.fetchAll().then(data => setQualities(data));
     }, []);
@@ -64,14 +71,35 @@ const EditPage = ({ user }) => {
         setErrors(errors);
         return isValid;
     };
+    const getQualities = elements => {
+        const qualitiesQrray = [];
+        for (const elem of elements) {
+            for (const qualy in qualities) {
+                if (elem.value === qualities[qualy]._id) {
+                    qualitiesQrray.push(qualities[qualy]);
+                }
+            }
+        }
+        return qualitiesQrray;
+    };
+    const getProfessionById = id => {
+        for (const prof in professions) {
+            const profData = professions[prof];
+            if (profData._id === id) return profData;
+        }
+    };
     const isValid = Object.keys(errors).length === 0;
     const handleSubmit = e => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
         API.users
-            .update(user._id)
-            .then(() => history.push(`/users/${user._id}`));
+            .update(data._id, {
+                ...data,
+                profession: getProfessionById(data.profession),
+                qualities: getQualities(data.qualities),
+            })
+            .then(() => history.push(`/users/${data._id}`));
     };
     return (
         <div className="input-group mb-3 d-flex justify-content-center">
@@ -82,7 +110,7 @@ const EditPage = ({ user }) => {
                     name="name"
                     value={data.name}
                     onChange={handleChange}
-                    error={errors.email}
+                    error={errors.name}
                 />
                 <TextField
                     label="Email"
