@@ -4,7 +4,7 @@ import Navbar from "./components/ui/navBar";
 import { Route, Switch, Redirect } from "react-router";
 import Main from "./layouts/main";
 import Login from "./layouts/login";
-import EditPage from "./components/page/editPage/editPage";
+import EditPage from "./components/ui/editPage";
 
 const App = () => {
   return (

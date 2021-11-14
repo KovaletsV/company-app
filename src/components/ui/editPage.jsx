@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
-import { validator } from "../../../utils/validator";
-import TextField from "../../common/form/textField";
-import API from "../../../API";
-import SelectField from "../../common/form/selectField";
-import RadioField from "../../common/form/radioField";
-import MultiSelectField from "../../common/form/multiSelectField";
+import { useHistory } from "react-router-dom";
+import { validator } from "../../utils/validator";
+import TextField from "../common/form/textField";
+import API from "../../API";
+import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
+import MultiSelectField from "../common/form/multiSelectField";
 
-const EditPage = () => {
+const EditPage = ({ user }) => {
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -45,21 +45,6 @@ const EditPage = () => {
                 message: "Email is not correct",
             },
         },
-        password: {
-            isRequired: {
-                message: "isRequired",
-            },
-            isCapitalSymbol: {
-                message: "Password must have a capital letter",
-            },
-            isConfigDigit: {
-                message: "Password must have a number",
-            },
-            min: {
-                message: "Password must been include 8 or more symbols",
-                value: 8,
-            },
-        },
         profession: {
             isRequired: {
                 message: "is Required",
@@ -68,12 +53,6 @@ const EditPage = () => {
         qualities: {
             isRequired: {
                 message: "is Required",
-            },
-        },
-        license: {
-            isRequired: {
-                message:
-                    "You can not use our service without license agreement",
             },
         },
     };
@@ -90,7 +69,9 @@ const EditPage = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        history.push(`/users/:userId`);
+        API.users
+            .update(user._id)
+            .then(() => history.push(`/users/${user._id}`));
     };
     return (
         <div className="input-group mb-3 d-flex justify-content-center">
