@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import EditPage from "../../ui/editPage";
 import API from "../../../API";
 
 const EditUserPage = () => {

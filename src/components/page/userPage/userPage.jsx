@@ -1,34 +1,51 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import QualitiesList from "../../ui/qualities/qualitiesList";
 import API from "../../../API";
-import { useHistory } from "react-router-dom";
+import UserCard from "../../ui/userCard";
+import QualitiesCard from "../../ui/qualitiesCard";
+import MeetingsCard from "../../ui/meetingsCard";
+import UserComments from "../../ui/comments/userComments";
+import UserCommentsForm from "../../ui/comments/userCommentsForm.jsx";
 
 const UserPage = ({ userId }) => {
-    const history = useHistory();
     const [user, setUser] = useState();
+    const [allUsers, setAllUsers] = useState();
+    const [commentUser, setCommentUser] = useState();
     useEffect(() => {
         API.users.getById(userId).then(data => setUser(data));
+        API.users.fetchAll().then(data => setAllUsers(data));
     }, []);
-    const changeUserPage = () => {
-        history.push(`/users/${userId}/edit`);
-    };
+    useEffect(() => {
+        API.comments
+            .fetchCommentsForUser(userId)
+            .then(data => setCommentUser(data));
+    });
     if (user) {
         return (
             <>
-                <h3>{user.name}</h3>
-                <h3>Profession: {user.profession.name}</h3>
-                <QualitiesList qualities={user.qualities} />
-                <p>Completed meetings: {user.completedMeetings}</p>
-                <h3>Rate: {user.rate}</h3>
+                <div className="container">
+                    <div className="row gutters-sm">
+                        <div className="col-md-4 mb-3">
+                            <UserCard user={user} />
+                            <QualitiesCard data={user.qualities} />
+                            <MeetingsCard user={user} />
+                        </div>
 
-                <button
-                    onClick={() => {
-                        changeUserPage();
-                    }}
-                >
-                    Edit
-                </button>
+                        <div className="col-md-8">
+                            <UserCommentsForm
+                                userId={userId}
+                                allUsers={allUsers}
+                                setCommentUser={setCommentUser}
+                            />
+                            <UserComments
+                                userId={userId}
+                                allUsers={allUsers}
+                                commentUser={commentUser}
+                                setCommentUser={setCommentUser}
+                            />
+                        </div>
+                    </div>
+                </div>
             </>
         );
     }

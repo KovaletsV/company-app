@@ -20,11 +20,11 @@ const RegisterForm = () => {
     const [qualities, setQualities] = useState({});
     const [errors, setErrors] = useState({});
     useEffect(() => {
-        API.professions.fetchAll().then((data) => setProfessions(data));
-        API.qualities.fetchAll().then((data) => setQualities(data));
+        API.professions.fetchAll().then(data => setProfessions(data));
+        API.qualities.fetchAll().then(data => setQualities(data));
     }, []);
-    const handleChange = (target) => {
-        setData((prevState) => ({
+    const handleChange = target => {
+        setData(prevState => ({
             ...prevState,
             [target.name]: target.value,
         }));
@@ -79,7 +79,7 @@ const RegisterForm = () => {
         return isValid;
     };
     const isValid = Object.keys(errors).length === 0;
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
