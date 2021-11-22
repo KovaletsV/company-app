@@ -4,7 +4,7 @@ import API from "../../../API";
 import { validator } from "../../../utils/validator";
 
 const UserCommentsForm = ({ userId, allUsers, setCommentUser }) => {
-    const [data, setData] = useState();
+    const [data, setData] = useState({ userId: "" });
     const [textMessage, setTextMessage] = useState("");
     const [errors, setErrors] = useState({});
 
@@ -38,7 +38,7 @@ const UserCommentsForm = ({ userId, allUsers, setCommentUser }) => {
         const isValid = validate();
         if (!isValid) return;
         const newDate = { ...data, content: textMessage };
-        setData();
+        setData({ userId: "" });
         setTextMessage("");
         API.comments.add(newDate);
         API.comments
@@ -62,6 +62,7 @@ const UserCommentsForm = ({ userId, allUsers, setCommentUser }) => {
                                     className="form-select"
                                     name="userId"
                                     onChange={handleChangeUser}
+                                    value={data.userId}
                                 >
                                     <option>Choose your user</option>
                                     {allUsers &&
