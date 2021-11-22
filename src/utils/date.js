@@ -1,41 +1,46 @@
-const currentDate = currentTime => {
-    const result = {};
-    const time = {
-        year: 31536000,
-        month: 2592000,
-        day: 86400,
-        hour: 3600,
-        minute: 60,
-        second: 1,
-    };
-    Object.keys(time).forEach(function (key) {
-        result[key] = Math.floor(currentTime / time[key]);
-        currentTime -= result[key] * time[key];
-    });
-    return result;
-};
-export const showDate = time => {
-    const currentTime = (new Date().getTime() - time) / 1000;
-    if (currentTime <= 60) {
-        return "1 минуту назад";
-    } else if (currentTime <= 300 && currentTime > 60) {
-        return "5 минут назад";
-    } else if (currentTime <= 600 && currentTime > 300) {
-        return "10 минут назад";
-    } else if (currentTime <= 1800 && currentTime > 600) {
-        return "30 минут назад";
-    } else if (currentTime <= 86400 && currentTime > 1800) {
-        if (currentTime >= 1800 && currentTime < 3600) {
-            return "1 час назад";
-        } else {
-            const time = currentDate(currentTime);
-            return ` ${time.hour} часов, ${time.minute} минут назад`;
-        }
-    } else if (currentTime <= 31536000 && currentTime > 86400) {
-        const time = currentDate(currentTime);
-        return ` ${time.month} месяц  ${time.day} дней назад `;
-    } else {
-        const time = currentDate(currentTime);
-        return ` ${time.year} лет ${time.month} месяцев ${time.day} дней назад  `;
+export function getDate(timestamp) {
+    const difference = Date.now() - Number(timestamp);
+    const minutes = Math.floor(difference / 1000 / 60);
+    if (minutes < 1) return " Now";
+    if (minutes < 60) return ` ${getMinutes(minutes)} later`;
+    const hours = Math.floor(difference / 1000 / 60 / 60);
+    if (hours < 24) {
+        return ` ${getHours(hours)} ${getMinutes(minutes % 60)} later`;
     }
+    const date = new Date(+timestamp);
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    return ` ${day} ${month} ${year} year`;
+}
+
+const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "June",
+    "July",
+    "Aug",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Dic",
+];
+
+const getMinutes = minutes => {
+    const words = ["minute", "minutes"];
+    const last = String(minutes)[String(minutes).length - 1];
+    if (minutes > 10 && minutes < 20) return ` ${minutes} ${words[2]}`;
+    if (last === "1") return ` ${minutes} ${words[0]}`;
+    if (+last > 1) return ` ${minutes} ${words[1]}`;
+};
+
+const getHours = hours => {
+    const words = ["hour", "hours"];
+    const last = String(hours)[String(hours).length - 1];
+    if (hours > 10 && hours < 20) return ` ${hours} ${words[2]}`;
+    if (last === "1") return ` ${hours} ${words[0]}`;
+    if (+last > 1) return ` ${hours} ${words[1]}`;
 };

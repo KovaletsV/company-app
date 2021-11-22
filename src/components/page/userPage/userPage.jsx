@@ -19,7 +19,7 @@ const UserPage = ({ userId }) => {
         API.comments
             .fetchCommentsForUser(userId)
             .then(data => setCommentUser(data));
-    });
+    }, []);
     if (user) {
         return (
             <>

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import API from "../../../API";
-import { showDate } from "../../../utils/date";
+import { getDate } from "../../../utils/date";
 
 const UserComments = ({ userId, allUsers, commentUser, setCommentUser }) => {
     const removeComment = id => {
@@ -50,7 +50,7 @@ const UserComments = ({ userId, allUsers, commentUser, setCommentUser }) => {
                                                                 comment.userId,
                                                             )}`}
                                                             <span className="small">
-                                                                {showDate(
+                                                                {getDate(
                                                                     comment.created_at,
                                                                 )}
                                                             </span>
