@@ -16,13 +16,14 @@ const UserComments = ({ userId, allUsers, commentUser, setCommentUser }) => {
             return userName[0].name;
         }
     };
+    const sortedData = commentUser.sort((a, b) => b.created_at - a.created_at);
     return (
         <div className="card mb-3">
             <div className="card-body ">
                 <h2>Comments</h2>
                 <hr />
-                {commentUser &&
-                    commentUser.map(comment => {
+                {sortedData &&
+                    sortedData.map(comment => {
                         return (
                             <div
                                 className="bg-light card-body  mb-3"
@@ -50,6 +51,7 @@ const UserComments = ({ userId, allUsers, commentUser, setCommentUser }) => {
                                                                 comment.userId,
                                                             )}`}
                                                             <span className="small">
+                                                                ~
                                                                 {getDate(
                                                                     comment.created_at,
                                                                 )}
