@@ -16,7 +16,6 @@ const EditPage = () => {
         profession: "",
         sex: "male",
         qualities: [],
-        license: false,
     });
     const [professions, setProfessions] = useState([]);
     const [qualities, setQualities] = useState({});
@@ -96,7 +95,7 @@ const EditPage = () => {
         API.users
             .update(data._id, {
                 ...data,
-                profession: getProfessionById(data.profession),
+                professions: getProfessionById(data.profession),
                 qualities: getQualities(data.qualities),
             })
             .then(() => history.push(`/users/${data._id}`));
