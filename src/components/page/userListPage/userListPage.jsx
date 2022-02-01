@@ -8,6 +8,7 @@ import SearchStatus from "../../ui/searchStatus";
 import UserTable from "../../ui/userTable";
 import _ from "lodash";
 import TextField from "../../common/form/textField";
+import { useUser } from "../../../hooks/useUsers";
 
 const UserListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -18,73 +19,72 @@ const UserListPage = () => {
 
     //Принятие данных (server)
     useEffect(() => {
-        API.professions.fetchAll().then((data) => setProfessions(data));
+        API.professions.fetchAll().then(data => setProfessions(data));
     }, []);
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
     //Установка количество отображаемых пользователей на странице
     const pageSize = 4;
-    const [users, setUsers] = useState();
+    const { users } = useUser();
 
-    useEffect(() => {
-        API.users.fetchAll().then((data) => setUsers(data));
-    }, []);
     //Удаление ползователя из списка
-    const handleDelete = (userId) => {
-        setUsers(users.filter((user) => userId !== user._id));
+    const handleDelete = userId => {
+        // setUsers(users.filter(user => userId !== user._id));
+        console.log(userId);
     };
     //Выбор флага 'избранное'
-    const handleToggleBookMark = (id) => {
-        setUsers(
-            users.filter((user) => {
-                if (user._id === id) {
-                    user.bookmark = !user.bookmark;
-                    return user;
-                }
-                return user;
-            }),
-        );
+    const handleToggleBookMark = id => {
+        // setUsers(
+        //     users.filter(user => {
+        //         if (user._id === id) {
+        //             user.bookmark = !user.bookmark;
+        //             return user;
+        //         }
+        //         return user;
+        //     })
+        // );
+        console.log(id);
     };
     //Метод поиска людей
     const clearFilter = () => {
         setSelectedProf();
     };
-    const handleUserSearch = (target) => {
+    const handleUserSearch = target => {
         clearFilter();
         setSearchUser(target.value);
     };
     //Выбор профессии
-    const handleProfessionSelect = (item) => {
+    const handleProfessionSelect = item => {
         setSearchUser("");
         setSelectedProf(item);
     };
     //Выбор страницы
-    const handlePageChange = (pageIndex) => {
+    const handlePageChange = pageIndex => {
         setCurrentPage(pageIndex);
     };
     //Создаем функцию для сортировки
-    const handleSort = (item) => {
+    const handleSort = item => {
         setSortBy(item);
     };
 
     if (users) {
         const searchedUsers = searchUser
-            ? users.filter((user) => user.name.toLowerCase().match(searchUser))
+            ? users.filter(user => user.name.toLowerCase().match(searchUser))
             : users;
         //Фильтр пользователей по профессии
         const filteredUsers = selectedProf
             ? users.filter(
-                  (user) =>
+                  user =>
                       JSON.stringify(user.profession) ===
-                      JSON.stringify(selectedProf),
+                      JSON.stringify(selectedProf)
               )
             : searchedUsers;
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
-            [sortBy.order],
+            [sortBy.order]
         );
         const usersCrop = paginate(sortedUsers, currentPage, pageSize);
         //Начальное состояние профессий
@@ -144,6 +144,6 @@ const UserListPage = () => {
 };
 UserListPage.propTypes = {
     users: PropTypes.array,
-    match: PropTypes.object,
+    match: PropTypes.object
 };
 export default UserListPage;

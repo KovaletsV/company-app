@@ -4,53 +4,52 @@ import BookMark from "../common/bookMark";
 import Qualities from "./qualities";
 import Table from "../common/table/table";
 import { Link } from "react-router-dom";
+import Profession from "./profession";
 
 const UserTable = ({
     users,
     onSort,
     selectedSort,
     onToggleBookMark,
-    onDelete,
-    ...rest
+    onDelete
 }) => {
     const columns = {
         name: {
             path: "name",
             name: "Имя",
-            component: (user) => (
+            component: user => (
                 <Link to={`/users/${user._id}`}>{user.name}</Link>
-            ),
+            )
         },
         qualities: {
             name: "Качества",
-            component: (user) => <Qualities qualities={user.qualities} />,
+            component: user => <Qualities qualities={user.qualities} />
         },
-        professions: { path: "profession.name", name: "Профессия" },
-        completedMeetings: {
-            path: "completedMeetings",
-            name: "Встретился, раз",
+        profession: {
+            name: "Профессия",
+            component: user => <Profession id={user.profession} />
         },
         rate: { path: "rate", name: "Оценка" },
         bookmark: {
             path: "bookmark",
             name: "Избранное",
-            component: (user) => (
+            component: user => (
                 <BookMark
                     status={user.bookmark}
                     onClick={() => onToggleBookMark(user._id)}
                 />
-            ),
+            )
         },
         delete: {
-            component: (user) => (
+            component: user => (
                 <button
                     onClick={() => onDelete(user._id)}
                     className="btn btn-danger"
                 >
                     delete
                 </button>
-            ),
-        },
+            )
+        }
     };
     return (
         <Table
@@ -67,6 +66,6 @@ UserTable.propTypes = {
     onSort: PropTypes.func,
     selectedSort: PropTypes.object,
     onToggleBookMark: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };
 export default UserTable;

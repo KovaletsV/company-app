@@ -15,7 +15,7 @@ const EditPage = () => {
         password: "",
         profession: "",
         sex: "male",
-        qualities: [],
+        qualities: []
     });
     const [professions, setProfessions] = useState([]);
     const [qualities, setQualities] = useState({});
@@ -25,8 +25,8 @@ const EditPage = () => {
         API.users.getById(userId).then(user =>
             setData({
                 ...user,
-                email: user.email ? user.email : "",
-            }),
+                email: user.email ? user.email : ""
+            })
         );
         API.professions.fetchAll().then(data => setProfessions(data));
         API.qualities.fetchAll().then(data => setQualities(data));
@@ -38,33 +38,33 @@ const EditPage = () => {
     const handleChange = target => {
         setData(prevState => ({
             ...prevState,
-            [target.name]: target.value,
+            [target.name]: target.value
         }));
     };
     const validatorConfig = {
         name: {
             isRequired: {
-                message: "isRequired",
-            },
+                message: "isRequired"
+            }
         },
         email: {
             isRequired: {
-                message: "isRequired",
+                message: "isRequired"
             },
             isEmail: {
-                message: "Email is not correct",
-            },
+                message: "Email is not correct"
+            }
         },
         profession: {
             isRequired: {
-                message: "is Required",
-            },
+                message: "is Required"
+            }
         },
         qualities: {
             isRequired: {
-                message: "is Required",
-            },
-        },
+                message: "is Required"
+            }
+        }
     };
     useEffect(() => {
         validate();
@@ -100,7 +100,7 @@ const EditPage = () => {
             .update(data._id, {
                 ...data,
                 professions: getProfessionById(data.profession),
-                qualities: getQualities(data.qualities),
+                qualities: getQualities(data.qualities)
             })
             .then(() => history.push(`/users/${data._id}`));
     };
@@ -148,7 +148,7 @@ const EditPage = () => {
                                 options={[
                                     { name: "Male", value: "male" },
                                     { name: "Female", value: "female" },
-                                    { name: "Other", value: "other" },
+                                    { name: "Other", value: "other" }
                                 ]}
                                 value={data.sex}
                                 onChange={handleChange}
