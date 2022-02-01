@@ -4,9 +4,8 @@ import Navbar from "./components/ui/navBar";
 import { Route, Switch, Redirect } from "react-router";
 import Main from "./layouts/main";
 import Login from "./layouts/login";
-import EditUserPage from "./components/ui/editPage";
 import { ProfessionProvider } from "./hooks/useProfession";
-import { QualitiesProvider } from "./hooks/useQualities";
+import { QualitiesProvider } from "./hooks/useQuality";
 import { ToastContainer } from "react-toastify";
 
 const App = () => {
@@ -16,16 +15,12 @@ const App = () => {
             <Switch>
                 <ProfessionProvider>
                     <QualitiesProvider>
-                        <Route
-                            path="/users/:userId/edit"
-                            component={EditUserPage}
-                        />
-                        <Route path="/users/:userId?" component={Users} />
-                        <Route path="/login:type?" component={Login} />
-                        <Route exact path="/" component={Main} />
-                        <Redirect to="/" />
+                        <Route path="/users/:id?" component={Users} />
+                        <Route path="/login/:type?" component={Login} />
                     </QualitiesProvider>
                 </ProfessionProvider>
+                <Route path="/" exact component={Main} />
+                <Redirect to="/" />
             </Switch>
             <ToastContainer />
         </>
