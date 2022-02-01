@@ -1,26 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useQualities } from "../../../hooks/useQualities";
+// import React from "react";
+// import PropTypes from "prop-types";
 
-const Quality = ({ qualities }) => {
-    const { getQualities } = useQualities();
-    const qual = getQualities(qualities);
-    return (
-        <>
-            {qual.map(q => (
-                <span
-                    style={{ margin: "5px" }}
-                    key={q._id}
-                    className={`badge bg-${q.color}`}
-                >
-                    {q.name}
-                </span>
-            ))}
-        </>
-    );
-};
+// const Quality = ({ color, name, _id }) => {
+//     return (
+//         <span key={_id} className={`badge me-2 bg-${color}`}>
+//             {name}
+//         </span>
+//     );
+// };
 
-Quality.propTypes = {
-    qualities: PropTypes.array
-};
-export default Quality;
+// Quality.propTypes = {
+//     color: PropTypes.string.isRequired,
+//     name: PropTypes.string.isRequired,
+//     _id: PropTypes.string,
+// };
+// export default Quality;

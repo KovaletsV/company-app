@@ -23,11 +23,15 @@ const UserTable = ({
         },
         qualities: {
             name: "Качества",
-            component: user => <Qualities qualities={user.qualities} />
+            component: user => <Qualities qualitiesId={user.qualities} />
         },
         profession: {
             name: "Профессия",
             component: user => <Profession id={user.profession} />
+        },
+        completedMeetings: {
+            path: "completedMeetings",
+            name: "Встретился, раз"
         },
         rate: { path: "rate", name: "Оценка" },
         bookmark: {
