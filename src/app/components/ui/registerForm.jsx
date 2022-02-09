@@ -29,6 +29,10 @@ const RegisterForm = () => {
     }));
     const { professions } = useProfessions();
 
+    const professionList = professions.map((p) => ({
+        label: p.name,
+        value: p._id
+    }));
     const [errors, setErrors] = useState({});
 
     const handleChange = (target) => {
@@ -121,7 +125,7 @@ const RegisterForm = () => {
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
                 name="profession"
-                options={professions}
+                options={professionList}
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
