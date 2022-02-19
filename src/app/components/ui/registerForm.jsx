@@ -16,6 +16,7 @@ const RegisterForm = () => {
         email: "",
         password: "",
         profession: "",
+        name: "",
         sex: "male",
         qualities: [],
         licence: false
@@ -42,6 +43,15 @@ const RegisterForm = () => {
         }));
     };
     const validatorConfog = {
+        name: {
+            isRequired: {
+                message: "Электронная почта обязательна для заполнения"
+            },
+            min: {
+                message: "Имя должно составлять минимум 3 символа",
+                value: 3
+            }
+        },
         email: {
             isRequired: {
                 message: "Электронная почта обязательна для заполнения"
@@ -50,6 +60,7 @@ const RegisterForm = () => {
                 message: "Email введен некорректно"
             }
         },
+
         password: {
             isRequired: {
                 message: "Пароль обязателен для заполнения"
@@ -61,7 +72,7 @@ const RegisterForm = () => {
                 message: "Пароль должен содержать хотя бы одно число"
             },
             min: {
-                message: "Пароль должен состаять миниму из 8 символов",
+                message: "Пароль должен составлять минимум 8 символов",
                 value: 8
             }
         },
@@ -112,6 +123,13 @@ const RegisterForm = () => {
                 value={data.email}
                 onChange={handleChange}
                 error={errors.email}
+            />
+            <TextField
+                label="Имя"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                error={errors.name}
             />
             <TextField
                 label="Пароль"
