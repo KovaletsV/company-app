@@ -76,20 +76,17 @@ const AuthProvider = ({ children }) => {
     async function signIn({ email, password }) {
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_KEY}`;
         try {
-            console.log(url);
             const { data } = await httpAuth.post(url, {
                 email,
                 password,
                 returnSecureToken: true
             });
-            console.log(data);
+
             setTokens(data);
             await getUserData();
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
-            console.log(process.env);
-            console.log(code, message);
             if (code === 400) {
                 if (message === "EMAIL_NOT_FOUND") {
                     const errorObject = {
