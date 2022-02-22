@@ -34,6 +34,14 @@ const AuthProvider = ({ children }) => {
     function randomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+    async function updateUserData(data) {
+        try {
+            const { content } = await userService.update(data);
+            setCurrentUser(content);
+        } catch (error) {
+            errorCatcher(error);
+        }
+    }
 
     //  registration
     async function signUp({ email, password, ...rest }) {
@@ -147,7 +155,9 @@ const AuthProvider = ({ children }) => {
     }, [error]);
 
     return (
-        <AuthContext.Provider value={{ signUp, currentUser, signIn, logout }}>
+        <AuthContext.Provider
+            value={{ signUp, currentUser, signIn, logout, updateUserData }}
+        >
             {!isLoading ? children : "LOading"}
         </AuthContext.Provider>
     );
