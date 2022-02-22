@@ -20,23 +20,7 @@ const EditUserPage = () => {
     const { professions, isLoading: professionLoading } = useProfessions();
 
     const [errors, setErrors] = useState({});
-    // const getProfessionById = (id) => {
-    //     for (const prof in professions) {
-    //         const profData = professions[prof];
-    //         if (profData._id === id) return profData;
-    //     }
-    // };
-    // const getQualities = (elements) => {
-    //     const qualitiesQrray = [];
-    //     for (const elem of elements) {
-    //         for (const qualy in qualities) {
-    //             if (elem.value === qualities[qualy]._id) {
-    //                 qualitiesQrray.push(qualities[qualy]);
-    //             }
-    //         }
-    //     }
-    //     return qualitiesQrray;
-    // };
+
     const professionList = professions.map((p) => ({
         label: p.name,
         value: p._id
