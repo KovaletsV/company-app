@@ -15,10 +15,8 @@ const EditUserPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState();
     const { currentUser, updateUserData } = useAuth();
-
     const { qualities, isLoading: qualitiesLoading } = useQualities();
     const { professions, isLoading: professionLoading } = useProfessions();
-
     const [errors, setErrors] = useState({});
 
     const professionList = professions.map((p) => ({
@@ -72,7 +70,7 @@ const EditUserPage = () => {
         if (data && isLoading) {
             setIsLoading(false);
         }
-    }, []);
+    }, [data]);
 
     const validatorConfog = {
         email: {
